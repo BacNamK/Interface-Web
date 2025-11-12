@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Orbitron:wght@400..900&family=TASA+Orbiter:wght@400..800&display=swap");
+@import "tailwindcss";
+@theme {
+  --font-nunito: "Nunito", "sans-serif";
+  --animate-hide_left: hide_left 4s ease;
+  --animate-hide_right: hide_right 4s ease;
+
+  @keyframes hide_left {
+    0% {
+      transform: translatex(-100%);
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes hide_right {
+    0% {
+      transform: translatex(100%);
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+@layer utilities {
+  .animate-hide-left {
+    animation: var(--animate-hide_left);
+  }
+
+  .animate-hide-right {
+    animation: var(--animate-hide_right);
+  }
+}
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(0, 0, 0) transparent;
+}

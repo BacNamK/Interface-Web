@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/output.css" />
+    <title>Document</title>
+  </head>
+  <body class="font-nunito overflow-x-hidden">
+    <!--Navbar-->
+    <div
+      class="bg-[url('img/Bg.png')] w-full bg-contain bg-no-repeat h-[980px] max-md:h-[800px] justify-center"
+    >
+      <nav class="relative z-50 max-sm:border-b-2 border-white/20">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 lg:pt-15">
+          <div class="relative flex h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <!-- Mobile menu button-->
+              <button
+                type="button"
+                command="--toggle"
+                commandfor="mobile-menu"
+                class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-white"
+              >
+                <span class="sr-only">Open main menu</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  data-slot="icon"
+                  aria-hidden="true"
+                  class="size-6 in-aria-expanded:hidden"
+                >
+                  <path
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  data-slot="icon"
+                  aria-hidden="true"
+                  class="size-6 not-in-aria-expanded:hidden"
+                >
+                  <path
+                    d="M6 18 18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="flex flex-1 items-center justify-around sm:items-stretch sm:justify-start"
+            >
+              <div class="flex shrink-0 items-center">
+                <h1 class="font-bold text-4xl text-white">Traunship</h1>
+              </div>
+              <div class="hidden sm:ml-6 sm:block lg:pl-40">
+                <div class="flex space-x-10 text-[18px]">
+                  <a
+                    href="#"
+                    aria-current="page"
+                    class="px-3 py-2 font-medium text-gray-300 hover:text-white"
+                    >Dashboard</a
+                  >
+                  <a
+                    href="#"
+                    class="rounded-md px-3 py-2 font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                    >Team</a
+                  >
+                  <a
+                    href="#"
+                    class="rounded-md px-3 py-2 font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                    >Projects</a
+                  >
+                  <a
+                    href="#"
+                    class="rounded-md px-3 py-2 font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                    >Calendar</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+            >
+              <!-- Profile dropdown -->
+              <el-dropdown class="ml-3 relative z-50">
+                <button
+                  class="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                >
+                  <a
+                    href=""
+                    class="text-white font-bold bg-[rgb(184,92,56)] p-2 rounded-full xl:scale-120"
+                    >Try a demo</a
+                  >
+                </button>
+              </el-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <el-disclosure
+          id="mobile-menu"
+          hidden
+          class="block sm:hidden z-50 relative"
+        >
+          <div class="space-y-1 px-2 pt-2 pb-3 bg-gray-800 z-50 h-[250px]">
+            <a
+              href="#"
+              aria-current="page"
+              class="block rounded-md px-3 py-2 text-base font-medium text-white"
+              >Dashboard</a
+            >
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+              >Team</a
+            >
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+              >Projects</a
+            >
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+              >Calendar</a
+            >
+          </div>
+        </el-disclosure>
+      </nav>
+
+      <!--content-->
+      <div
+        class="w-full h-80 mt-44 max-md:mt-35 justify-items-center content-center text-white"
+      >
+        <div
+          class="bg-[rgb(184,92,56)] w-20 h-20 rounded-full flex justify-center items-center cursor-pointer hover:scale-110 transition duration-300"
+        >
+          <img src="src/img/play.png" alt="" />
+        </div>
+        <div class="pb-15 pt-15 max-sm:text-black text-center">
+          <p class="text-7xl font-bold max-md:text-5xl">
+            Best place to buy rocket
+          </p>
+          <p class="text-2xl mt-5 text-center max-sm:text-xl">
+            Quis ipsum pellentesque nulla nulla elementum sagittis dictum
+          </p>
+        </div>
+        <div
+          class="h-[63px] w-full flex justify-center gap-10 font-bold max-sm:text-black"
+        >
+          <div
+            class="w-[167px] border-2 border-white max-sm:border-black max-sm:scale-80 rounded-4xl text-center content-center text-2xl hover:bg-[rgb(184,92,56)] hover:border-[rgb(184,92,56)] cursor-pointer"
+          >
+            Try a demo
+          </div>
+          <div
+            class="w-[167px] border-2 border-white max-sm:border-black max-sm:scale-80 rounded-4xl text-center content-center text-2xl hover:bg-[rgb(184,92,56)] hover:border-[rgb(184,92,56)] cursor-pointer"
+          >
+            Buy Now
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!---Products-->
+    <div class="h-[1100px] max-sm:h-[1900px] bg-white justify-items-center">
+      <div class="justify-items-center pt-22">
+        <p class="text-7xl font-bold max-sm:text-[34px]">
+          Features you can’s avoid
+        </p>
+        <p
+          class="text-xl text-gray-400 p-10 font-sans max-sm:text-[15px] text-center"
+        >
+          Lacus purus eu, mauris pretium mollis ac id mauris eget. Id diam enim
+          faucibus pellentesque mi massa. Nmet nullam sed habitasse dignissim
+          viverra congue nisl
+        </p>
+      </div>
+      <div
+        class="w-[80%] max-sm:w-full grid grid-flow-col grid-columns-4 grid-rows-2 max-sm:grid-rows-6 max-sm:grid-cols-1 justify-items-cente mt-10 gap-x-10 xl:gap-y-20"
+      >
+        <!--Group 1-->
+        <div
+          class="justify-items-center pt-5 shadow-2xl rounded-xl scroll-animate from-left max-sm:scale-90"
+        >
+          <img src="src/img/Rocket.png" class="h-10 w-10" alt="" />
+          <p class="p-4 text-[#b85c38] font-bold text-xl text-center">
+            Solid Fuel 1
+          </p>
+          <pre class="text-gray-400 font-sans">
+Eget mattis viverra in
+lorem dictum consequat
+etiam non pellentesque
+mauris diamprice ore
+          </pre>
+        </div>
+        <!--Group 2-->
+        <div
+          class="justify-items-center scale-105 pt-5 shadow-2xl rounded-xl scroll-animate from-left max-sm:scale-90"
+        >
+          <img src="src/img/Rocket (3).png" alt="" />
+          <p class="p-4 text-[#b85c38] font-bold text-xl text-center">
+            Plasma Rocket
+          </p>
+          <pre class="text-gray-400 font-sans">
+Eget mattis viverra in
+lorem dictum consequat
+etiam non pellentesque
+mauris diamprice ore
+          </pre>
+        </div>
+        <!--Group 3-->
+        <div
+          class="justify-items-center scale-105 pt-5 shadow-2xl rounded-xl max-sm:scale-90"
+        >
+          <img src="src/img/Rocket (1).png" alt="" />
+          <p class="p-4 text-[#b85c38] font-bold text-xl text-center">
+            Liquid Fuel 3
+          </p>
+          <pre class="text-gray-400 font-sans">
+Eget mattis viverra in
+lorem dictum consequat
+etiam non pellentesque
+mauris diamprice ore
+          </pre>
+        </div>
+        <!--Group 4-->
+        <div
+          class="justify-items-center scale-105 pt-5 shadow-2xl rounded-xl max-sm:scale-90"
+        >
+          <img src="src/img/Rocket (4).png" alt="" />
+          <p class="p-4 text-[#b85c38] font-bold text-xl text-center">
+            Supersonic Rocket
+          </p>
+          <pre class="text-gray-400 font-sans">
+Eget mattis viverra in
+lorem dictum consequat
+etiam non pellentesque
+mauris diamprice ore
+          </pre>
+        </div>
+        <!--Group 5-->
+        <div
+          class="justify-items-center scale-105 pt-5 shadow-2xl rounded-xl scroll-animate max-sm:scale-90"
+        >
+          <img src="src/img/Rocket (2).png" alt="" />
+          <p class="p-4 text-[#b85c38] font-bold text-xl text-center">
+            Iron Rocket
+          </p>
+          <pre class="text-gray-400 font-sans">
+Eget mattis viverra in
+lorem dictum consequat
+etiam non pellentesque
+mauris diamprice ore
+          </pre>
+        </div>
+        <!--Group 6-->
+        <div
+          class="justify-items-center scale-105 pt-5 shadow-2xl rounded-xl scroll-animate max-sm:scale-90"
+        >
+          <img src="src/img/Rocket (5).png" alt="" />
+          <p class="p-4 text-[#b85c38] font-bold text-xl text-center">
+            Ultra Rocket
+          </p>
+          <pre class="text-gray-400 font-sans">
+Eget mattis viverra in
+lorem dictum consequat
+etiam non pellentesque
+mauris diamprice ore
+          </pre>
+        </div>
+      </div>
+    </div>
+    <!--Testimonial-->
+    <div class="h-auto bg-[rgb(224,192,151)] flex">
+      <div>
+        <img
+          class="[clip-path:ellipse(95%_100%_at_0%_50%)] max-sm:hidden"
+          src="src/img/Rectangle 1.png"
+          alt=""
+        />
+      </div>
+      <div class="content-center pl-10 text-[rgb(92,61,46)]">
+        <pre class="text-6xl font-bold font-nunito max-sm:text-4xl pt-5">
+“Right time to
+invest into space”</pre
+        >
+        <pre class="p-5 text-2xl font-sans max-sm:text-xl">
+Nmet nullam sed habitasse dignissim
+viverra congue nisl. Lacus puruseu,
+mauris pretium mollis ac id mauris eget.
+        </pre>
+        <div class="flex">
+          <img class="size-16" src="src/img/Ellipse 2.png" alt="" />
+          <pre class="pl-5 text-xl text-black">
+Milon Ask
+CEO, Blackhole
+          </pre>
+        </div>
+      </div>
+    </div>
+    <!--Features-->
+    <div class="h-[900px] max-sm:h-[1100px] justify-items-center">
+      <div class="justify-items-center mt-28">
+        <p class="text-6xl font-bold max-sm:text-4xl">
+          Affordable, good quality.
+        </p>
+        <p
+          class="p-12 text-gray-400 text-xl font-sans text-center max-sm:p-2 max-sm:text-[17px]"
+        >
+          Lacus purus eu, mauris pretium mollis ac id mauris eget. Id diam enim
+          faucibus pellentesque mi massa. Nmet nullam sed habitasse dignissim
+          viverra congue nisl
+        </p>
+      </div>
+      <div
+        class="grid grid-flow-col max-sm:grid-rows-4 max-sm:grid-cols-1 grid-colums-6 grid-rows-2 gap-y-8 gap-x-4 mt-10 max-sm:gap-y-1"
+      >
+        <div class="flex max-sm:scale-90">
+          <img
+            src="src/img/bg (1).png"
+            class="scroll-animate from-left max-sm:h-[190px]"
+            alt=""
+          />
+          <div class="p-5 scroll-animate from-left max-sm:pt-0">
+            <p class="text-2xl pb-5 max-sm:pb-0">Million pounds of thrust</p>
+            <pre class="text-gray-400 font-sans">
+Eget mattis viverra in dictum 
+consequat etiam non pellentesque
+mauris diamprice ore</pre
+            >
+            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
+          </div>
+        </div>
+        <div class="flex max-sm:scale-90">
+          <img
+            src="src/img/bg (2).png"
+            class="scroll-animate max-sm:h-[190px]"
+            alt=""
+          />
+          <div class="p-5 scroll-animate max-sm:pt-0">
+            <p class="text-2xl pb-5">Atlast launched Friendship</p>
+            <pre class="text-gray-400 font-sans">
+Eget mattis viverra in dictum 
+consequat etiam non pellentesque
+mauris diamprice ore</pre
+            >
+            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
+          </div>
+        </div>
+        <div class="flex max-sm:scale-90">
+          <img
+            src="src/img/bg (3).png"
+            class="scroll-animate max-sm:h-[190px]"
+            alt=""
+          />
+          <div class="p-5 scroll-animate max-sm:pt-0">
+            <p class="text-2xl pb-5">More than 1,300 missions</p>
+            <pre class="text-gray-400 font-sans">
+Eget mattis viverra in dictum 
+consequat etiam non pellentesque
+mauris diamprice ore</pre
+            >
+            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
+          </div>
+        </div>
+        <div class="flex max-sm:scale-90">
+          <img
+            src="src/img/bg (4).png"
+            class="scroll-animate from-left max-sm:h-[190px]"
+            alt=""
+          />
+          <div class="p-5 scroll-animate from-left max-sm:pt-0">
+            <p class="text-2xl pb-5">Sparate spacecraft</p>
+            <pre class="text-gray-400 font-sans">
+Eget mattis viverra in dictum 
+consequat etiam non pellentesque
+mauris diamprice ore</pre
+            >
+            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Blog-->
+    <div
+      class="h-[700px] max-sm:h-[1700px] bg-[rgb(247,249,252)] items-center xl:flex gap-10 justify-items-center grid"
+    >
+      <div class="pl-40 max-sm:pl-5">
+        <pre class="text-5xl font-bold font-nunito max-sm:text-4xl">
+Don’t miss Rocket
+Science blog</pre
+        >
+        <pre class="text-[24px] text-gray-400 pt-10 pb-10 font-sans">
+Nmet nullam sed habitasse dignissim
+viverra congue nisl. Lacus purus eu,
+mauris pretium mollis ac id mauris eget.</pre
+        >
+        <div
+          class="bg-[rgb(184,92,56)] w-35 text-xl p-5 rounded-4xl text-white font-bold"
+        >
+          All stories
+        </div>
+      </div>
+      <!--1-->
+      <div
+        class="bg-white h-[80%] max-sm:h-[550px] max-sm:w-auto rounded-b-xl shadow-xl hover:scale-105 duration-300 scroll-animate"
+      >
+        <img src="src/img/Image.png" alt="" />
+        <div class="p-5 text-[18px] scroll-animate duration-2000">
+          <pre class="text-[26px] font-bold font-nunito">
+“Rocket lab boots its
+space system”</pre
+          >
+          <pre class="pt-7 pb-2 text-gray-400 font-sans">
+Nmet nullam sed habitasse
+dignissim viverra congue nisl.
+Lacus purus eu.</pre
+          >
+          <p class="text-[rgb(193,112,81)] pt-4">Read story</p>
+        </div>
+      </div>
+      <!--2-->
+      <div
+        class="bg-white h-[80%] max-sm:h-[550px] rounded-b-xl shadow-xl hover:scale-105 transition scroll-animate"
+      >
+        <img src="src/img/Image (1).png" alt="" />
+        <div class="p-5 text-[18px] scroll-animate">
+          <pre class="text-[26px] font-bold font-nunito">
+“Rocket lab boots its
+space system”</pre
+          >
+          <pre class="pt-7 pb-2 text-gray-400 font-sans">
+Nmet nullam sed habitasse
+dignissim viverra congue nisl.
+Lacus purus eu.</pre
+          >
+          <p class="text-[rgb(193,112,81)] pt-4">Read story</p>
+        </div>
+      </div>
+    </div>
+    <!--Portfolio-->
+    <div class="bg-[rgb(45,36,36)]">
+      <div
+        class="h-[600px] max-sm:h-[850px] bg-white xl:flex gap-32 justify-center items-center [clip-path:ellipse(120%_100%_at_50%_0%)]"
+      >
+        <div class="justify-items-center">
+          <img src="src/img/Ellipse 3.png" alt="" />
+          <div class="justify-items-center">
+            <pre class="pt-5 pb-5 text-xl font-sans">
+I brought a rocket for my son in
+his 14th birthday. I liked their
+service. Love it.</pre
+            >
+            <p class="text-center font-bold text-xl">Wade Warren</p>
+            <p class="text-center">Astronaut</p>
+          </div>
+        </div>
+        <div class="justify-items-center">
+          <img src="src/img/Ellipse 3 (1).png" alt="" />
+          <div>
+            <pre class="pt-5 pb-5 text-xl font-nunito">
+They delivered my custom 
+rocket as fast as the rocket
+itself. Mindblowing.</pre
+            >
+            <p class="text-center font-bold text-xl">Esther Howard</p>
+            <p class="text-center">Appolo 11 Pilot</p>
+          </div>
+        </div>
+        <div class="justify-items-center">
+          <img src="src/img/Ellipse 3 (2).png" alt="" />
+          <div>
+            <pre class="pt-5 pb-5 text-xl font-nunito">
+I found awesome customer
+service from them. They fixed
+my rocket within a day.</pre
+            >
+            <p class="text-center font-bold text-xl">Cameron Williamson</p>
+            <p class="text-center">NASA Manager</p>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="h-[460px] max-sm:h-[900px] text-white justify-items-center">
+        <div class="xl:flex justify-center gap-34 mt-30 max-sm:pl-10">
+          <div>
+            <h2 class="text-5xl font-mono">Traunship</h2>
+            <pre class="mt-10 max-sm:pl-2">
+4517 Washington Ave.
+Manchester,
+Kentucky 39495</pre
+            >
+            <p class="pt-2 max-sm:pl-2">(684) 555-0102</p>
+            <p class="pt-2 max-sm:pl-2">(603) 555-0123</p>
+          </div>
+          <div class="max-sm:pt-5">
+            <h2 class="text-[30px] font-sans">Quick Links</h2>
+            <ul class="mt-10 max-sm:mt-0 font-bold gap-y-2 grid max-sm:pl-2">
+              <li class="pt-2">Features</li>
+              <li class="pt-2">Products</li>
+              <li class="pt-2">Testimonial</li>
+              <li class="pt-2">Contact</li>
+            </ul>
+          </div>
+          <div class="max-sm:mt-5">
+            <h2 class="text-[30px] font-sans">Newsletter</h2>
+            <div
+              class="bg-[rgb(83,76,76)] w-[480px] h-52 rounded-xl content-center mt-10 max-sm:mt-5 max-sm:scale-90"
+            >
+              <div class="p-5">
+                <p class="text-xl pb-10">We send updates in every week</p>
+                <input
+                  class="bg-white rounded-[5px] w-[70%] h-13 outline-none text-gray-500 pl-2 text-xl"
+                  placeholder="Email"
+                  type="text"
+                />
+                <button class="bg-[rgb(184,92,56)] w-20 h-13 rounded-3xl ml-5">
+                  Go
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="w-[80%] opacity-30 mt-25" />
+        <div class="mt-5 flex justify-between w-[80%]">
+          <div>© 2021 Traunship. All right reserved.</div>
+          <div class="content-center">
+            <ul class="flex gap-1">
+              <li><img src="src/img/uil_facebook-f.png" alt="" /></li>
+              <li><img src="src/img/uil_twitter-alt.png" alt="" /></li>
+              <li><img src="src/img/uil_instagram.png" alt="" /></li>
+              <li><img src="src/img/uil_linkedin-alt.png" alt="" /></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="scrip.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"
+      type="module"
+    ></script>
+  </body>
+</html>
