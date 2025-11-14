@@ -7,7 +7,7 @@
 
   @keyframes hide_left {
     0% {
-      transform: translatex(-100%);
+      transform: translatey(-100%);
       opacity: 0;
     }
     100% {
@@ -16,7 +16,7 @@
   }
   @keyframes hide_right {
     0% {
-      transform: translatex(100%);
+      transform: translatey(100%);
       opacity: 0;
     }
     100% {
@@ -34,6 +34,7 @@
   }
 }
 html {
+  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: rgb(0, 0, 0) transparent;
 }

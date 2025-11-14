@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="src/output.css" />
     <title>Document</title>
   </head>
-  <body class="font-nunito overflow-x-hidden">
+  <body class="font-nunito overflow-x">
     <!--Navbar-->
     <div
       class="bg-[url('img/Bg.png')] w-full bg-contain bg-no-repeat h-[980px] max-md:h-[800px] justify-center"
@@ -64,25 +64,25 @@
               <div class="hidden sm:ml-6 sm:block lg:pl-40">
                 <div class="flex space-x-10 text-[18px]">
                   <a
-                    href="#"
+                    href="#products"
                     aria-current="page"
                     class="px-3 py-2 font-medium text-gray-300 hover:text-white"
-                    >Dashboard</a
+                    >Products</a
                   >
                   <a
-                    href="#"
+                    href="#testimonial"
                     class="rounded-md px-3 py-2 font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-                    >Team</a
+                    >Testimonial</a
                   >
                   <a
-                    href="#"
+                    href="#features"
                     class="rounded-md px-3 py-2 font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-                    >Projects</a
+                    >Features</a
                   >
                   <a
-                    href="#"
+                    href="#portfolio"
                     class="rounded-md px-3 py-2 font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-                    >Calendar</a
+                    >Portfolio</a
                   >
                 </div>
               </div>
@@ -106,37 +106,32 @@
           </div>
         </div>
 
-        <el-disclosure
-          id="mobile-menu"
-          hidden
-          class="block sm:hidden z-50 relative"
-        >
+        <el-disclosure id="mobile-menu" hidden class="block sm:hidden">
           <div class="space-y-1 px-2 pt-2 pb-3 bg-gray-800 z-50 h-[250px]">
             <a
-              href="#"
+              href="#products"
               aria-current="page"
               class="block rounded-md px-3 py-2 text-base font-medium text-white"
-              >Dashboard</a
+              >Products</a
             >
             <a
-              href="#"
+              href="#testimonial"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-              >Team</a
+              >Testimonial</a
             >
             <a
-              href="#"
+              href="#features"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-              >Projects</a
+              >Features</a
             >
             <a
-              href="#"
+              href="#portfolio"
               class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
-              >Calendar</a
+              >Portfolio</a
             >
           </div>
         </el-disclosure>
       </nav>
-
       <!--content-->
       <div
         class="w-full h-80 mt-44 max-md:mt-35 justify-items-center content-center text-white"
@@ -170,9 +165,11 @@
         </div>
       </div>
     </div>
-
     <!---Products-->
-    <div class="h-[1100px] max-sm:h-[1900px] bg-white justify-items-center">
+    <section
+      id="products"
+      class="h-[1100px] max-sm:h-[1900px] bg-white justify-items-center"
+    >
       <div class="justify-items-center pt-22">
         <p class="text-7xl font-bold max-sm:text-[34px]">
           Features you can’s avoid
@@ -279,9 +276,9 @@ mauris diamprice ore
           </pre>
         </div>
       </div>
-    </div>
+    </section>
     <!--Testimonial-->
-    <div class="h-auto bg-[rgb(224,192,151)] flex">
+    <section id="testimonial" class="h-auto bg-[rgb(224,192,151)] flex">
       <div>
         <img
           class="[clip-path:ellipse(95%_100%_at_0%_50%)] max-sm:hidden"
@@ -307,92 +304,32 @@ CEO, Blackhole
           </pre>
         </div>
       </div>
-    </div>
+    </section>
     <!--Features-->
-    <div class="h-[900px] max-sm:h-[1100px] justify-items-center">
+    <section
+      id="features"
+      class="h-[1000px] max-sm:h-[1400px] justify-items-center"
+    >
       <div class="justify-items-center mt-28">
         <p class="text-6xl font-bold max-sm:text-4xl">
           Affordable, good quality.
         </p>
         <p
-          class="p-12 text-gray-400 text-xl font-sans text-center max-sm:p-2 max-sm:text-[17px]"
+          class="p-12 text-gray-400 text-[20px] font-sans text-center max-sm:p-2 max-sm:text-[17px]"
         >
           Lacus purus eu, mauris pretium mollis ac id mauris eget. Id diam enim
-          faucibus pellentesque mi massa. Nmet nullam sed habitasse dignissim
+          br faucibus pellentesque mi massa. Nmet nullam sed habitasse dignissim
           viverra congue nisl
         </p>
       </div>
       <div
-        class="grid grid-flow-col max-sm:grid-rows-4 max-sm:grid-cols-1 grid-colums-6 grid-rows-2 gap-y-8 gap-x-4 mt-10 max-sm:gap-y-1"
-      >
-        <div class="flex max-sm:scale-90">
-          <img
-            src="src/img/bg (1).png"
-            class="scroll-animate from-left max-sm:h-[190px]"
-            alt=""
-          />
-          <div class="p-5 scroll-animate from-left max-sm:pt-0">
-            <p class="text-2xl pb-5 max-sm:pb-0">Million pounds of thrust</p>
-            <pre class="text-gray-400 font-sans">
-Eget mattis viverra in dictum 
-consequat etiam non pellentesque
-mauris diamprice ore</pre
-            >
-            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
-          </div>
-        </div>
-        <div class="flex max-sm:scale-90">
-          <img
-            src="src/img/bg (2).png"
-            class="scroll-animate max-sm:h-[190px]"
-            alt=""
-          />
-          <div class="p-5 scroll-animate max-sm:pt-0">
-            <p class="text-2xl pb-5">Atlast launched Friendship</p>
-            <pre class="text-gray-400 font-sans">
-Eget mattis viverra in dictum 
-consequat etiam non pellentesque
-mauris diamprice ore</pre
-            >
-            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
-          </div>
-        </div>
-        <div class="flex max-sm:scale-90">
-          <img
-            src="src/img/bg (3).png"
-            class="scroll-animate max-sm:h-[190px]"
-            alt=""
-          />
-          <div class="p-5 scroll-animate max-sm:pt-0">
-            <p class="text-2xl pb-5">More than 1,300 missions</p>
-            <pre class="text-gray-400 font-sans">
-Eget mattis viverra in dictum 
-consequat etiam non pellentesque
-mauris diamprice ore</pre
-            >
-            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
-          </div>
-        </div>
-        <div class="flex max-sm:scale-90">
-          <img
-            src="src/img/bg (4).png"
-            class="scroll-animate from-left max-sm:h-[190px]"
-            alt=""
-          />
-          <div class="p-5 scroll-animate from-left max-sm:pt-0">
-            <p class="text-2xl pb-5">Sparate spacecraft</p>
-            <pre class="text-gray-400 font-sans">
-Eget mattis viverra in dictum 
-consequat etiam non pellentesque
-mauris diamprice ore</pre
-            >
-            <p class="text-[rgb(193,112,81)] pt-5">Learn more</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        class="xl:w-[80%] grid grid-flow-col max-sm:grid-rows-4 max-sm:grid-cols-1 grid-cols-2 grid-rows-2"
+        id="feat"
+      ></div>
+    </section>
     <!--Blog-->
-    <div
+    <section
+      id="blog"
       class="h-[700px] max-sm:h-[1700px] bg-[rgb(247,249,252)] items-center xl:flex gap-10 justify-items-center grid"
     >
       <div class="pl-40 max-sm:pl-5">
@@ -400,7 +337,9 @@ mauris diamprice ore</pre
 Don’t miss Rocket
 Science blog</pre
         >
-        <pre class="text-[24px] text-gray-400 pt-10 pb-10 font-sans">
+        <pre
+          class="text-[24px] max-sm:text-[15px] text-gray-400 pt-10 pb-10 font-sans"
+        >
 Nmet nullam sed habitasse dignissim
 viverra congue nisl. Lacus purus eu,
 mauris pretium mollis ac id mauris eget.</pre
@@ -447,9 +386,9 @@ Lacus purus eu.</pre
           <p class="text-[rgb(193,112,81)] pt-4">Read story</p>
         </div>
       </div>
-    </div>
+    </section>
     <!--Portfolio-->
-    <div class="bg-[rgb(45,36,36)]">
+    <section id="portfolio" class="bg-[rgb(45,36,36)]">
       <div
         class="h-[600px] max-sm:h-[850px] bg-white xl:flex gap-32 justify-center items-center [clip-path:ellipse(120%_100%_at_50%_0%)]"
       >
@@ -544,11 +483,11 @@ Kentucky 39495</pre
           </div>
         </div>
       </div>
-    </div>
-    <script src="scrip.js"></script>
+    </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"
       type="module"
     ></script>
+    <script src="scrip.js"></script>
   </body>
 </html>
