@@ -7,7 +7,7 @@
 
   @keyframes hide_left {
     0% {
-      transform: translatey(-100%);
+      transform: translatex(-100%);
       opacity: 0;
     }
     100% {
@@ -16,7 +16,7 @@
   }
   @keyframes hide_right {
     0% {
-      transform: translatey(100%);
+      transform: translatex(100%);
       opacity: 0;
     }
     100% {
