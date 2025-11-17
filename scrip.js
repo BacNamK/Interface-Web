@@ -16,43 +16,171 @@ function ScrollAnimation() {
     .querySelectorAll(".scroll-animate")
     .forEach((el) => observer.observe(el));
 }
-// phần products
-const rocket = document.getElementById("rocket");
-fetch("https://api.spacexdata.com/v4/rockets?")
-  .then((res) => res.json())
-  .then((data) => {
-    const rk = data;
-    rocket.innerHTML = rk
-      .map(
-        (rk) => `
-            <div class="relative flex shadow-2xl rounded-xl content-center  ">
-              <div class="flex-1"><img class="p-5 h-70 rounded-4xl " src="${rk.flickr_images[0]}" ></div>
-            <div class="flex-1  pt-7 w-full">
-            <h1 class="text-2xl font-bold">${rk.name}</h1>
-            <ul class="p-1">
-            <li class="pt-1">Country : ${rk.country}</li>
-            <li class="pt-1">Height : ${rk.height.meters} meters</li>
-            <li class="pt-1">Diameters : ${rk.diameter.meters} meters</li>
-            <li class="pt-1">First flight : ${rk.first_flight} </li>
-            <li class="pt-1">Active : ${rk.active} </li>
-            </ul>
-            <a href="" class="absolute text-amber-300 bottom-6">Read more</a>
-            </div>
-        </div>
-    `
-      )
-      .join("");
-  });
 
-// phần features
-const feat = document.getElementById("feat");
-fetch("https://api.spaceflightnewsapi.net/v4/articles?limit=4")
-  .then((res) => res.json())
-  .then((data) => {
-    const articles = data.results;
-    feat.innerHTML = articles
-      .map(
-        (articles) => `
+// phần products
+if (window.location.pathname.includes("index.html")) {
+  const rocket = document.getElementById("rocket");
+  const products = document.getElementById("products"); // Thêm biến cho container modal
+  let allRocket = []; // Khai báo biến lưu trữ dữ liệu
+
+  // 1. Fetch dữ liệu
+  fetch("https://api.spacexdata.com/v4/rockets?")
+    .then((res) => res.json())
+    .then((data) => {
+      allRocket = data;
+      // 2. Render danh sách tên lửa
+      rocket.innerHTML = allRocket
+        .map(
+          (rk) => `
+          <div class="relative flex shadow-2xl rounded-xl content-center">
+            <div class="flex-1"><img class="p-5 h-70 rounded-4xl" src="${rk.flickr_images[0]}" alt="${rk.name}"></div>
+            <div class="flex-1 pt-7 w-full">
+              <h1 class="text-2xl font-bold">${rk.name}</h1>
+              <ul class="p-1">
+                <li class="pt-1">Country : ${rk.country}</li>
+                <li class="pt-1">Height : ${rk.height.meters} meters</li>
+                <li class="pt-1">Diameters : ${rk.diameter.meters} meters</li>
+                <li class="pt-1">First flight : ${rk.first_flight} </li>
+                <li class="pt-1">Active : ${rk.active} </li>
+              </ul>
+              <div onclick="detail('${rk.id}')" class="absolute text-amber-300 bottom-6 cursor-pointer">Read more</div>
+            </div>
+          </div>
+        `
+        )
+        .join("");
+    })
+    .catch((error) => console.error("Error fetching data:", error)); // Thêm xử lý lỗi
+
+  let changeRB = false;
+  let currentRocketId = null;
+  function notifi() {
+    alert("finish!");
+  }
+  // Hàm hiển thị chi tiết (toàn cục)
+  function detail(rocketId) {
+    document.body.style.overflow = "hidden";
+    if (rocketId) {
+      currentRocketId = rocketId;
+      changeRB = false;
+    }
+    const selectedRocket = allRocket.find((r) => r.id === rocketId);
+    products.innerHTML = `
+    <div class="fixed inset-0 z-50 modal-overlay" onclick="closeDetail(event)">
+      <div class="bg-gray-600/50 w-full h-screen flex items-center justify-center">
+        <div class="bg-white w-[90%] h-[90%] rounded-2xl shadow-2xl p-6 xl:flex relative" onclick="event.stopPropagation()">
+          <div class="flex-1">
+            <div class="flex"><h2 class="w-[70%] text-3xl max-sm:text-[xl] font-bold mb-4">${selectedRocket.name}</h2><div class="w-[30%]" id="in_buy"></div> </div>
+            <img src="${selectedRocket.flickr_images[0]}" alt="${selectedRocket.name}" class="w-full h-[90%] object-cover rounded-xl mb-4">
+          </div>
+          <div class="flex-1 justify-items-center">
+          <div id="infor_buy" class="h-auto w-[90%]  "></div>
+          </div>
+          <button onclick="closeDetail()" class="absolute xl:top-5 top-5 xl:right-10 right-5 text-gray-500 hover:text-gray-800 text-2xl">
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+    updateModalContent(selectedRocket);
+  }
+  function updateModalContent(rocket) {
+    const type = document.getElementById("in_buy");
+    const infor = document.getElementById("infor_buy");
+
+    if (changeRB) {
+      // Trạng thái BUY: Hiển thị nút 'Information' và nội dung BUY
+      type.innerHTML = `<button id="btn_toggle" class="bg-red-500 text-white p-2 rounded w-25">Information</button>`;
+      infor.innerHTML = `
+            <div>
+              <h3 class="text-2xl font-semibold mb-3">Launch Configuration</h3>
+              <div class="w-full h-10"><p class="bg-gray-200 rounded-2xl text-xl content-center h-full pl-3 w-fit pr-3">Cost per launch: $${rocket.cost_per_launch.toLocaleString()}</p></div>
+              <p class="pt-3">
+  Please make sure you read all the information we provide. We will email you what you need to complete the transaction.</p>
+            </div>
+          <div class=" absolute bottom-8  h-[8%] max-sm:w-[80%] xl:w-[40%] flex justify-center"><button onclick="notifi()" class="text-center h-full w-50 content-center rounded-2xl bg-green-500 text-white">BUY</button></div>
+        `;
+    } else {
+      // Trạng thái INFO: Hiển thị nút 'BUY' và nội dung Information
+      type.innerHTML = `<button id="btn_toggle" class="bg-green-500 text-white p-2 rounded w-25">BUY</button>`;
+      infor.innerHTML = `
+            <h3 class="text-2xl font-semibold mb-3">General Information</h3>
+            <p>${rocket.description}</p>
+            <div class="max-sm:hidden mt-3">
+              <ul class="mt-1 list-disc list-inside">
+                  <li>ID: ${rocket.id}</li>
+                  <li>Company: ${rocket.company}</li>
+                  <li>Country: ${rocket.country}</li>
+                  <li>First Flight: ${rocket.first_flight}</li>
+                  <li>Active: ${rocket.active ? "Yes" : "No"}</li>
+                  <li>Stages: ${rocket.stages}</li>
+                  <li>Boosters: ${rocket.boosters}</li>
+                  <li>success rate: ${rocket.success_rate_pct}%</li>
+                  <li>Wikipedia: <a href="${
+                    rocket.wikipedia
+                  }" class="text-blue-500">${rocket.wikipedia}</a></li>
+              </ul>
+            </div>
+            <div class="w-full h-[35%] flex mt-5 gap-x-5 max-sm:hidden">
+                <div class="flex-1 bg-gray-200 rounded-xl">
+                <h2 class="text-xl p-3">First Stage</h2>
+                <ol class="ml-5">
+                  <li>Reusable: ${rocket.first_stage.reusable}</li>
+                  <li>Engines: ${rocket.first_stage.engines}</li>
+                  <li>Fuel amount: ${rocket.first_stage.fuel_amount_tons}T</li>
+                  <li>Burn time sec: ${rocket.first_stage.burn_time_sec}/s</li>
+                  <li>Thrust sea level: ${
+                    rocket.first_stage.thrust_sea_level.kN
+                  }kN</li>
+                  <li>Thust vacuum: ${
+                    rocket.first_stage.thrust_vacuum.kN
+                  }kN</li>
+                </ol>
+                </div>
+              <div class="flex-1 bg-gray-200 rounded-xl">
+                <h2 class="text-xl p-2">Second Stage</h2>
+                <ul class="ml-5">
+                  <p>Reusable: ${rocket.second_stage.reusable}</p>
+                  <p>Engines: ${rocket.second_stage.engines}</p>
+                  <p>Fuel amount: ${rocket.second_stage.fuel_amount_tons}T</p>
+                  <p>Burn time sec: ${rocket.second_stage.burn_time_sec}/s</p>
+                  <p>payloads option: ${
+                    rocket.second_stage.payloads.option_1
+                  }</p>
+                  </div>
+                </ul>
+            </div>
+        `;
+    }
+
+    // 5. Thêm Event Listener cho nút toggle (phải được thêm sau khi nút được tạo)
+    document.getElementById("btn_toggle").addEventListener("click", () => {
+      changeRB = !changeRB; // Đảo trạng thái
+      updateModalContent(rocket); // Gọi lại hàm cập nhật nội dung, KHÔNG gọi lại detail()
+    });
+  }
+
+  // Hàm đóng modal
+  function closeDetail(event) {
+    // Nếu sự kiện được truyền vào VÀ không click vào nền overlay, thì không làm gì cả
+    if (event && !event.target.classList.contains("modal-overlay")) {
+      return;
+    }
+
+    // Mở khóa scroll
+    document.body.style.overflow = "auto";
+    products.innerHTML = "";
+  }
+  // phần features
+  const feat = document.getElementById("feat");
+  fetch("https://api.spaceflightnewsapi.net/v4/articles?limit=4")
+    .then((res) => res.json())
+    .then((data) => {
+      const articles = data.results;
+      feat.innerHTML = articles
+        .map(
+          (articles) => `
     <div class="scroll-animate flex pl-4 h-full max-sm:border-black/5 max-sm:border-b-2 shadow-lg p-5 rounded-2xl xl:scale-90">
           <div class="flex-1 \">
             <img
@@ -78,14 +206,14 @@ fetch("https://api.spaceflightnewsapi.net/v4/articles?limit=4")
         </div>
         </div>
     `
-      )
-      .join("");
-    ScrollAnimation();
-  });
-
+        )
+        .join("");
+      ScrollAnimation();
+    });
+}
 // LOGIN AND REGISTER
 if (window.location.pathname.includes("login.html")) {
-  const body = document.getElementById("main");
+  const body = document.getElementById("formLS");
 
   // active là biến để chuyển đổi giữa form register và login
   // true là register, false là login
@@ -291,7 +419,10 @@ if (localStorage.getItem("StatusLogin") === "true") {
 }
 
 // set lại trạng thái đăng nhập
-if (window.location.pathname.includes("index.html")) {
+if (
+  window.location.pathname.includes("index.html") &&
+  localStorage.getItem("StatusLogin") === "true"
+) {
   document.getElementById("singOut").addEventListener("click", () => {
     localStorage.setItem("StatusLogin", "false");
     window.location.reload();

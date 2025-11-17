@@ -187,9 +187,10 @@
       </div>
     </div>
     <!---Products-->
-    <section
-      id="products"
-      class="h-[1100px] max-sm:h-[1500px] bg-white justify-items-center"
+    <div  class="relative">
+      <div id="products"></div>
+      <section
+      class="h-[1100px] max-sm:h-[1500px] bg-white justify-items-center z-10"
     >
       <div class="justify-items-center pt-22">
         <p class="text-7xl font-bold max-sm:text-[34px]">
@@ -207,9 +208,8 @@
       id="rocket"
         class="w-[90%] max-sm:w-full grid grid-flow-col grid-columns-6 grid-rows-2 max-sm:grid-rows-6 max-sm:grid-cols-1 justify-items-cente mt-10 gap-x-10 xl:gap-y-20"
       >
-
       </div>
-    </section>
+    </section></div>
     <!--Testimonial-->
     <section id="testimonial" class="h-auto bg-[rgb(224,192,151)] flex">
       <div>
@@ -239,7 +239,7 @@ CEO, Blackhole
       </div>
     </section>
     <!--Features-->
-    <section id="features" class="h-[900px] max-sm:h-[1050px] justify-items-center">
+    <section id="features" class="h-auto max-sm:h-auto justify-items-center">
       <div class="justify-items-center mt-28">
         <p class="text-6xl font-bold max-sm:text-4xl">
           Affordable, good quality.
@@ -318,9 +318,9 @@ Lacus purus eu.</pre
       </div>
     </section>
     <!--Portfolio-->
-    <section id="portfolio" class="bg-[rgb(45,36,36)]">
+    <section id="portfolio" class="bg-[rgb(45,36,36)] w-full">
       <div
-        class="h-[600px] max-sm:h-[850px] bg-white xl:flex gap-32 justify-center items-center [clip-path:ellipse(120%_100%_at_50%_0%)]"
+        class="h-[500px] max-sm:h-[750px] bg-white xl:flex gap-32 justify-center items-center"
       >
         <div class="justify-items-center">
           <img src="src/img/Ellipse 3.png" alt="" />
@@ -337,10 +337,10 @@ service. Love it.</pre
         <div class="justify-items-center">
           <img src="src/img/Ellipse 3 (1).png" alt="" />
           <div>
-            <pre class="pt-5 pb-5 text-xl font-nunito">
+            <p class="pt-5 pb-5 text-xl font-nunito text-center">
 They delivered my custom 
 rocket as fast as the rocket
-itself. Mindblowing.</pre
+itself. Mindblowing.</p
             >
             <p class="text-center font-bold text-xl">Esther Howard</p>
             <p class="text-center">Appolo 11 Pilot</p>
@@ -349,25 +349,26 @@ itself. Mindblowing.</pre
         <div class="justify-items-center">
           <img src="src/img/Ellipse 3 (2).png" alt="" />
           <div>
-            <pre class="pt-5 pb-5 text-xl font-nunito">
+            <p class="pt-5 pb-5 text-xl font-nunito text-center">
 I found awesome customer
 service from them. They fixed
-my rocket within a day.</pre
+my rocket within a day.</p
             >
             <p class="text-center font-bold text-xl">Cameron Williamson</p>
             <p class="text-center">NASA Manager</p>
           </div>
         </div>
       </div>
-      <!--Footer-->
-      <div class="h-[460px] max-sm:h-[900px] text-white justify-items-center">
+    </section>
+          <!--Footer-->
+          <div class="h-[460px] max-sm:h-[900px] text-white justify-items-center bg-[rgb(45,36,36)]">
         <div class="xl:flex justify-center gap-34 mt-30 max-sm:pl-5">
-          <div>
+          <div class="pt-10">
             <h2 class="text-5xl font-mono">Traunship</h2>
-            <pre class="mt-10 max-sm:pl-2">
+            <p class="mt-10 max-sm:pl-2 text-center">
 4517 Washington Ave.
 Manchester,
-Kentucky 39495</pre
+Kentucky 39495</p
             >
             <p class="pt-2 max-sm:pl-2">(684) 555-0102</p>
             <p class="pt-2 max-sm:pl-2">(603) 555-0123</p>
@@ -381,10 +382,10 @@ Kentucky 39495</pre
               <li class="pt-2">Contact</li>
             </ul>
           </div>
-          <div class="max-sm:mt-5">
+          <div class="max-sm:mt-5 w-auto">
             <h2 class="text-[30px] font-sans">Newsletter</h2>
             <div
-              class="bg-[rgb(83,76,76)] w-[450px] h-52 rounded-xl content-center mt-10 max-sm:mt-5 max-sm:pr-20 max-sm:scale-90"
+              class=" w-[450px] h-52 rounded-xl content-center mt-10 max-sm:mt-5 max-sm:pr-20 max-sm:scale-90"
             >
               <div class="p-5">
                 <p class="text-xl pb-10">We send updates in every week</p>
@@ -393,7 +394,7 @@ Kentucky 39495</pre
                   placeholder="Email"
                   type="text"
                 />
-                <button class="bg-[rgb(184,92,56)] w-20 h-13 rounded-3xl ml-5">
+                <button class="bg-[rgb(184,92,56)] w-20 h-13 rounded-3xl ">
                   Go
                 </button>
               </div>
@@ -401,7 +402,7 @@ Kentucky 39495</pre
           </div>
         </div>
         <hr class="w-[80%] opacity-30 mt-25" />
-        <div class="mt-5 flex justify-between w-[80%]">
+        <div class="mt-5 flex justify-between w-auto">
           <div>© 2021 Traunship. All right reserved.</div>
           <div class="content-center">
             <ul class="flex gap-1">
@@ -413,7 +414,6 @@ Kentucky 39495</pre
           </div>
         </div>
       </div>
-    </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"
       type="module"
