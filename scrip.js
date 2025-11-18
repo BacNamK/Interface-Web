@@ -23,7 +23,7 @@ if (window.location.pathname.includes("index.html")) {
   const products = document.getElementById("products"); // Thêm biến cho container modal
   let allRocket = []; // Khai báo biến lưu trữ dữ liệu
 
-  // 1. Fetch dữ liệu
+  // Fetch dữ liệu
   fetch("https://api.spacexdata.com/v4/rockets?")
     .then((res) => res.json())
     .then((data) => {
@@ -154,9 +154,9 @@ if (window.location.pathname.includes("index.html")) {
         `;
     }
 
-    // 5. Thêm Event Listener cho nút toggle (phải được thêm sau khi nút được tạo)
+    // Thêm Event Listener cho nút toggle (phải được thêm sau khi nút được tạo)
     document.getElementById("btn_toggle").addEventListener("click", () => {
-      changeRB = !changeRB; // Đảo trạng thái
+      changeRB = !changeRB;
       updateModalContent(rocket); // Gọi lại hàm cập nhật nội dung, KHÔNG gọi lại detail()
     });
   }
@@ -215,14 +215,14 @@ if (window.location.pathname.includes("index.html")) {
 if (window.location.pathname.includes("login.html")) {
   const body = document.getElementById("formLS");
 
-  // active là biến để chuyển đổi giữa form register và login
-  // true là register, false là login
+  // Active là biến để chuyển đổi giữa form register và login
+  // True là register, false là login
   let active = true;
 
   function render() {
     body.innerHTML = "";
 
-    // render giao diện theo trạng thái
+    // Render giao diện theo trạng thái
     if (active) {
       body.innerHTML = `
           <div class="w-[80%] max-sm:w-[90%]">
@@ -390,7 +390,7 @@ if (window.location.pathname.includes("login.html")) {
       });
     }
 
-    // gắn lại sự kiện cho nút mới vừa được tạo
+    // Gắn lại sự kiện cho nút mới vừa được tạo
     document.getElementById("changeLR").addEventListener("click", () => {
       active = !active;
       render();
@@ -399,7 +399,7 @@ if (window.location.pathname.includes("login.html")) {
   render();
 }
 
-// thay đổi khung avata khi đăng nhập
+// Thay đổi khung avata khi đăng nhập
 if (localStorage.getItem("StatusLogin") === "true") {
   const shellUser = document.getElementById("shellUser");
   const settingUser = document.getElementById("settingUser");
@@ -418,7 +418,7 @@ if (localStorage.getItem("StatusLogin") === "true") {
     Sign out</a`;
 }
 
-// set lại trạng thái đăng nhập
+// Set lại trạng thái đăng nhập
 if (
   window.location.pathname.includes("index.html") &&
   localStorage.getItem("StatusLogin") === "true"
