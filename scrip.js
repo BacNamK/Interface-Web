@@ -17,20 +17,19 @@ function ScrollAnimation() {
     .forEach((el) => observer.observe(el));
 }
 
-if (window.location.pathname.includes("index.html")) {
-  const rocket = document.getElementById("rocket");
-  const products = document.getElementById("products");
-  let allRocket = [];
+const rocket = document.getElementById("rocket");
+const products = document.getElementById("products");
+let allRocket = [];
 
-  // phần products
-  fetch("https://api.spacexdata.com/v4/rockets?")
-    .then((res) => res.json())
-    .then((data) => {
-      allRocket = data;
-      // 2. Render danh sách tên lửa
-      rocket.innerHTML = allRocket
-        .map(
-          (rk) => `
+// phần products
+fetch("https://api.spacexdata.com/v4/rockets?")
+  .then((res) => res.json())
+  .then((data) => {
+    allRocket = data;
+    // 2. Render danh sách tên lửa
+    rocket.innerHTML = allRocket
+      .map(
+        (rk) => `
           <div class="scroll-animate relative flex shadow-2xl md:rounded-xl content-center">
             <div class="flex-1"><img class="p-5 h-70 rounded-4xl" src="${
               rk.flickr_images[0]
@@ -50,21 +49,21 @@ if (window.location.pathname.includes("index.html")) {
             </div>
           </div>
         `
-        )
-        .join("");
-    })
-    .catch((error) => console.error("Error fetching data:", error));
+      )
+      .join("");
+  })
+  .catch((error) => console.error("Error fetching data:", error));
 
-  let changeRB = false;
-  // Hàm hiển thị chi tiết (toàn cục)
-  function detail(rocketId) {
-    document.body.style.overflow = "hidden";
-    if (rocketId) {
-      currentRocketId = rocketId;
-      changeRB = false;
-    }
-    const selectedRocket = allRocket.find((r) => r.id === rocketId);
-    products.innerHTML = `
+let changeRB = false;
+// Hàm hiển thị chi tiết (toàn cục)
+function detail(rocketId) {
+  document.body.style.overflow = "hidden";
+  if (rocketId) {
+    currentRocketId = rocketId;
+    changeRB = false;
+  }
+  const selectedRocket = allRocket.find((r) => r.id === rocketId);
+  products.innerHTML = `
     <div class="fixed inset-0 z-50 modal-overlay" onclick="closeDetail(event)">
       <div class="bg-gray-600/50 w-full h-screen flex items-center justify-center">
         <div class="bg-white w-[90%] h-[90%] rounded-2xl shadow-2xl p-6 xl:flex relative" onclick="event.stopPropagation()">
@@ -82,16 +81,16 @@ if (window.location.pathname.includes("index.html")) {
       </div>
     </div>
   `;
-    updateModalContent(selectedRocket);
-  }
-  function updateModalContent(rocket) {
-    const type = document.getElementById("in_buy");
-    const infor = document.getElementById("infor_buy");
+  updateModalContent(selectedRocket);
+}
+function updateModalContent(rocket) {
+  const type = document.getElementById("in_buy");
+  const infor = document.getElementById("infor_buy");
 
-    if (changeRB) {
-      // Trạng thái BUY: Hiển thị nút 'Information' và nội dung BUY
-      type.innerHTML = `<button id="btn_toggle" class="bg-red-500 text-white p-2 rounded w-25">Information</button>`;
-      infor.innerHTML = `
+  if (changeRB) {
+    // Trạng thái BUY: Hiển thị nút 'Information' và nội dung BUY
+    type.innerHTML = `<button id="btn_toggle" class="bg-red-500 text-white p-2 rounded w-25">Information</button>`;
+    infor.innerHTML = `
             <div>
               <h3 class="text-2xl  font-semibold mb-3">Launch Configuration</h3>
               <div class="w-full h-10"><p class="bg-gray-200 rounded-2xl text-xl content-center h-full pl-3 w-fit pr-3">Cost per launch: $${rocket.cost_per_launch.toLocaleString()}</p></div>
@@ -100,10 +99,10 @@ if (window.location.pathname.includes("index.html")) {
             </div>
           <div class=" absolute bottom-8  h-[8%] max-sm:w-[80%] xl:w-[40%] flex justify-center"><button onclick="notifi()" class="text-center h-full w-50 content-center rounded-2xl bg-green-500 text-white">BUY</button></div>
         `;
-    } else {
-      // Trạng thái INFO: Hiển thị nút 'BUY' và nội dung Information
-      type.innerHTML = `<button id="btn_toggle" class="bg-green-500 text-white p-2 rounded w-25">BUY</button>`;
-      infor.innerHTML = `
+  } else {
+    // Trạng thái INFO: Hiển thị nút 'BUY' và nội dung Information
+    type.innerHTML = `<button id="btn_toggle" class="bg-green-500 text-white p-2 rounded w-25">BUY</button>`;
+    infor.innerHTML = `
             <h3 class="text-2xl font-semibold mb-3">General Information</h3>
             <p>${rocket.description}</p>
             <div class="max-sm:hidden mt-3">
@@ -151,35 +150,35 @@ if (window.location.pathname.includes("index.html")) {
                 </ul>
             </div>
         `;
-    }
-
-    // Thêm Event Listener cho nút toggle (phải được thêm sau khi nút được tạo)
-    document.getElementById("btn_toggle").addEventListener("click", () => {
-      changeRB = !changeRB;
-      updateModalContent(rocket); // Gọi lại hàm cập nhật nội dung, KHÔNG gọi lại detail()
-    });
   }
 
-  // Hàm đóng modal
-  function closeDetail(event) {
-    // Nếu sự kiện được truyền vào VÀ không click vào nền overlay, thì không làm gì cả
-    if (event && !event.target.classList.contains("modal-overlay")) {
-      return;
-    }
+  // Thêm Event Listener cho nút toggle (phải được thêm sau khi nút được tạo)
+  document.getElementById("btn_toggle").addEventListener("click", () => {
+    changeRB = !changeRB;
+    updateModalContent(rocket); // Gọi lại hàm cập nhật nội dung, KHÔNG gọi lại detail()
+  });
+}
 
-    // Mở khóa scroll
-    document.body.style.overflow = "auto";
-    products.innerHTML = "";
+// Hàm đóng modal
+function closeDetail(event) {
+  // Nếu sự kiện được truyền vào VÀ không click vào nền overlay, thì không làm gì cả
+  if (event && !event.target.classList.contains("modal-overlay")) {
+    return;
   }
-  // Features
-  const feat = document.getElementById("feat");
-  fetch("https://api.spaceflightnewsapi.net/v4/articles?limit=4")
-    .then((res) => res.json())
-    .then((data) => {
-      const articles = data.results;
-      feat.innerHTML = articles
-        .map(
-          (articles) => `
+
+  // Mở khóa scroll
+  document.body.style.overflow = "auto";
+  products.innerHTML = "";
+}
+// Features
+const feat = document.getElementById("feat");
+fetch("https://api.spaceflightnewsapi.net/v4/articles?limit=4")
+  .then((res) => res.json())
+  .then((data) => {
+    const articles = data.results;
+    feat.innerHTML = articles
+      .map(
+        (articles) => `
     <div class="scroll-animate flex pl-4 h-full max-sm:border-black/5 max-sm:border-b-2 shadow-lg p-5 md:rounded-2xl xl:scale-90">
           <div class="flex-1 \">
             <img
@@ -205,22 +204,21 @@ if (window.location.pathname.includes("index.html")) {
         </div>
         </div>
     `
-        )
-        .join("");
-      ScrollAnimation();
-    });
+      )
+      .join("");
+    ScrollAnimation();
+  });
 
-  // Protfolio
-  const astronaut = document.getElementById("astro");
-  fetch(
-    "https://ll.thespacedevs.com/2.2.0/astronaut/?mode=list&limit=3&page=1"
-  ).then((res) =>
-    res.json().then((data) => {
-      const ast = data.results;
-      console.log(data);
-      astronaut.innerHTML = ast
-        .map(
-          (per) => `
+// Protfolio
+const astronaut = document.getElementById("astro");
+fetch(
+  "https://ll.thespacedevs.com/2.2.0/astronaut/?mode=list&limit=3&page=1"
+).then((res) =>
+  res.json().then((data) => {
+    const ast = data.results;
+    astronaut.innerHTML = ast
+      .map(
+        (per) => `
               <div class="w-full h-full p-5 content-center">
             <div class=" max-sm:*:h-[80%] rounded-2xl p-5 bg-white shadow-2xl">
               <div class="flex"><img src="${
@@ -242,11 +240,10 @@ if (window.location.pathname.includes("index.html")) {
             </div>
           </div>
       `
-        )
-        .join("");
-    })
-  );
-}
+      )
+      .join("");
+  })
+);
 // LOGIN AND REGISTER
 if (window.location.pathname.includes("login.html")) {
   const body = document.getElementById("formLS");
