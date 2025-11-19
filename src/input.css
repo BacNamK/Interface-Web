@@ -3,20 +3,20 @@
 @theme {
   --font-nunito: "Nunito", "sans-serif";
   --animate-hide_left: hide_left 4s ease;
-  --animate-hide_right: hide_right 4s ease;
+  --animate-hide_up: hide_up 4s ease;
 
   @keyframes hide_left {
     0% {
-      transform: translatex(-100%);
+      transform: translateX(100%);
       opacity: 0;
     }
     100% {
       opacity: 1;
     }
   }
-  @keyframes hide_right {
+  @keyframes hide_up {
     0% {
-      transform: translatex(100%);
+      transform: translateY(100%) scale(0.5);
       opacity: 0;
     }
     100% {
@@ -29,8 +29,8 @@
     animation: var(--animate-hide_left);
   }
 
-  .animate-hide-right {
-    animation: var(--animate-hide_right);
+  .animate-hide-up {
+    animation: var(--animate-hide_up);
   }
 }
 html {

@@ -6,7 +6,7 @@ function ScrollAnimation() {
         if (entry.target.classList.contains("from-left")) {
           entry.target.classList.add("animate-hide-left");
         } else {
-          entry.target.classList.add("animate-hide-right");
+          entry.target.classList.add("animate-hide-up");
         }
       }
     });
@@ -17,13 +17,12 @@ function ScrollAnimation() {
     .forEach((el) => observer.observe(el));
 }
 
-// phần products
 if (window.location.pathname.includes("index.html")) {
   const rocket = document.getElementById("rocket");
-  const products = document.getElementById("products"); // Thêm biến cho container modal
-  let allRocket = []; // Khai báo biến lưu trữ dữ liệu
+  const products = document.getElementById("products");
+  let allRocket = [];
 
-  // Fetch dữ liệu
+  // phần products
   fetch("https://api.spacexdata.com/v4/rockets?")
     .then((res) => res.json())
     .then((data) => {
@@ -32,8 +31,10 @@ if (window.location.pathname.includes("index.html")) {
       rocket.innerHTML = allRocket
         .map(
           (rk) => `
-          <div class="relative flex shadow-2xl rounded-xl content-center">
-            <div class="flex-1"><img class="p-5 h-70 rounded-4xl" src="${rk.flickr_images[0]}" alt="${rk.name}"></div>
+          <div class="scroll-animate relative flex shadow-2xl md:rounded-xl content-center">
+            <div class="flex-1"><img class="p-5 h-70 rounded-4xl" src="${
+              rk.flickr_images[0]
+            }" alt="${rk.name}"></div>
             <div class="flex-1 pt-7 w-full">
               <h1 class="text-2xl font-bold">${rk.name}</h1>
               <ul class="p-1">
@@ -41,22 +42,20 @@ if (window.location.pathname.includes("index.html")) {
                 <li class="pt-1">Height : ${rk.height.meters} meters</li>
                 <li class="pt-1">Diameters : ${rk.diameter.meters} meters</li>
                 <li class="pt-1">First flight : ${rk.first_flight} </li>
-                <li class="pt-1">Active : ${rk.active} </li>
+                <li class="pt-1">Active : ${rk.active ? "Yes" : "No"} </li>
               </ul>
-              <div onclick="detail('${rk.id}')" class="absolute text-amber-300 bottom-6 cursor-pointer">Read more</div>
+              <div onclick="detail('${
+                rk.id
+              }')" class="absolute text-[rgb(184,92,56)] bottom-6 cursor-pointer">Read more</div>
             </div>
           </div>
         `
         )
         .join("");
     })
-    .catch((error) => console.error("Error fetching data:", error)); // Thêm xử lý lỗi
+    .catch((error) => console.error("Error fetching data:", error));
 
   let changeRB = false;
-  let currentRocketId = null;
-  function notifi() {
-    alert("finish!");
-  }
   // Hàm hiển thị chi tiết (toàn cục)
   function detail(rocketId) {
     document.body.style.overflow = "hidden";
@@ -94,7 +93,7 @@ if (window.location.pathname.includes("index.html")) {
       type.innerHTML = `<button id="btn_toggle" class="bg-red-500 text-white p-2 rounded w-25">Information</button>`;
       infor.innerHTML = `
             <div>
-              <h3 class="text-2xl font-semibold mb-3">Launch Configuration</h3>
+              <h3 class="text-2xl  font-semibold mb-3">Launch Configuration</h3>
               <div class="w-full h-10"><p class="bg-gray-200 rounded-2xl text-xl content-center h-full pl-3 w-fit pr-3">Cost per launch: $${rocket.cost_per_launch.toLocaleString()}</p></div>
               <p class="pt-3">
   Please make sure you read all the information we provide. We will email you what you need to complete the transaction.</p>
@@ -172,7 +171,7 @@ if (window.location.pathname.includes("index.html")) {
     document.body.style.overflow = "auto";
     products.innerHTML = "";
   }
-  // phần features
+  // Features
   const feat = document.getElementById("feat");
   fetch("https://api.spaceflightnewsapi.net/v4/articles?limit=4")
     .then((res) => res.json())
@@ -181,7 +180,7 @@ if (window.location.pathname.includes("index.html")) {
       feat.innerHTML = articles
         .map(
           (articles) => `
-    <div class="scroll-animate flex pl-4 h-full max-sm:border-black/5 max-sm:border-b-2 shadow-lg p-5 rounded-2xl xl:scale-90">
+    <div class="scroll-animate flex pl-4 h-full max-sm:border-black/5 max-sm:border-b-2 shadow-lg p-5 md:rounded-2xl xl:scale-90">
           <div class="flex-1 \">
             <img
               src="${articles.image_url}"
@@ -210,6 +209,43 @@ if (window.location.pathname.includes("index.html")) {
         .join("");
       ScrollAnimation();
     });
+
+  // Protfolio
+  const astronaut = document.getElementById("astro");
+  fetch(
+    "https://ll.thespacedevs.com/2.2.0/astronaut/?mode=list&limit=3&page=1"
+  ).then((res) =>
+    res.json().then((data) => {
+      const ast = data.results;
+      console.log(data);
+      astronaut.innerHTML = ast
+        .map(
+          (per) => `
+              <div class="w-full h-full p-5 content-center">
+            <div class=" max-sm:*:h-[80%] rounded-2xl p-5 bg-white shadow-2xl">
+              <div class="flex"><img src="${
+                per.profile_image
+              }" class="w-50 h-50 rounded-xl flex-1">
+                          <div class=" text-2xl justify-items-center content-center flex-1 pl-2">
+                            <p class="pt-2">${per.name}</p>
+                          </div>
+                        </div>
+            <div class="mt-7 text-[18px]">
+            <p class="pt-2">Status: ${per.status.name}</p>
+            <p class="pt-2">Type: ${per.type.name}</p>
+            <p class="pt-2">In Space: ${per.in_space ? "Yes" : "No"}</p>
+            <p class="pt-2">Time In Space: ${per.time_in_space}</p>
+            <p class="pt-2">Eva Time: ${per.eva_time}</p>
+            <p class="pt-2">Agency": "${per.agency}</p>
+            <p class="pt-2">Nationality: ${per.nationality}</p>
+            </div>
+            </div>
+          </div>
+      `
+        )
+        .join("");
+    })
+  );
 }
 // LOGIN AND REGISTER
 if (window.location.pathname.includes("login.html")) {
@@ -226,29 +262,39 @@ if (window.location.pathname.includes("login.html")) {
     if (active) {
       body.innerHTML = `
           <div class="w-[80%] max-sm:w-[90%]">
-            <div>
+            <div class"w-full">
               <div class="text-5xl mb-5">Create an account</div>
               <div class="text-[13px] p-4 pl-0 text-white/40">
                 Already an account ?
                 <button id="changeLR" class="text-amber-200">login</button>
               </div>
+              <div class="w-full flex gap-x-5">
+                <input
+                  class="bg-[rgb(60,54,76)]  h-10 rounded-[5px] mt-5 pl-5 outline-purple-800 w-[50%]"
+                  type="text"
+                  id="first_name"
+                  placeholder="first Name"
+                  required
+                />
+                <input
+                  class="bg-[rgb(60,54,76)] h-10 rounded-[5px] mt-5 pl-5 outline-purple-800 w-[50%]"
+                  type="text"
+                  id="last_name"
+                  placeholder="last Name"
+                  required
+                />
+              </div>
+              <br />
               <input
-                class="bg-[rgb(60,54,76)] w-full pl-5 h-10 rounded-[5px] mt-5 outline-purple-800"
-                type="text"
-                id="name"
-                placeholder="Full Name"
-                required
-              /><br />
-              <input
-                class="bg-[rgb(60,54,76)] w-full pl-5 h-10 rounded-[5px] mt-5 outline-purple-800"
-                type="text"
+                class="bg-[rgb(60,54,76)] w-full pl-5 h-10 rounded-[5px] outline-purple-800"
+                type="password"
                 id="password"
                 placeholder="Password"
                 required
               /><br />
               <input
                 class="bg-[rgb(60,54,76)] w-full pl-5 h-10 rounded-[5px] mt-5 outline-purple-800"
-                type="text"
+                type="email"
                 id="email"
                 placeholder="Email"
                 required
@@ -289,24 +335,39 @@ if (window.location.pathname.includes("login.html")) {
           </div>
       `;
       document.getElementById("register").addEventListener("click", () => {
-        const name = document.getElementById("name").value.trim();
+        const fname = document.getElementById("first_name").value.trim();
+        const lname = document.getElementById("last_name").value.trim();
         const password = document.getElementById("password").value;
-        const email = document.getElementById("email").value.trim();
+        const email = document.getElementById("email").value;
         const check = document.getElementById("check");
-        const User = { name, password, email };
-        if (!name || !password || !email || !check) {
+
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (regex.test(email)) {
+        } else {
+          alert("Email not valid");
+          return;
+        }
+        if (!fname || !password || !email || !check) {
           alert("pls fill full ");
           return;
         }
-        // Oject chuyển qua String để lưu và localstor
-        const StrU = localStorage.getItem("User");
-        if (StrU) {
-          const checkU = JSON.parse(StrU);
-          checkU.push(User);
-          localStorage.setItem("User", JSON.stringify(checkU));
-        } else {
-          localStorage.setItem("User", JSON.stringify([User]));
+        // Lưu người dùng
+        function getRandomInt(min, max) {
+          min = Math.ceil(min); // Ensures the minimum is an integer
+          max = Math.floor(max); // Ensures the maximum is an integer
+          return Math.floor(Math.random() * (max - min + 1)) + min;
         }
+        fetch("https://69152cb584e8bd126af8ef82.mockapi.io/user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first_name: fname,
+            last_name: lname,
+            password: password,
+            email: email,
+            UserId: getRandomInt(1, 100),
+          }),
+        });
         alert("Register success");
         active = false;
         render();
@@ -323,8 +384,8 @@ if (window.location.pathname.includes("login.html")) {
               <input
                 class="bg-[rgb(60,54,76)] w-full pl-5 h-10 rounded-[5px] mt-5 outline-purple-800"
                 type="text"
-                id="name"
-                placeholder="Full Name"
+                id="first_name"
+                placeholder="First Nam"
                 required
               /><br />
               <input
@@ -361,32 +422,29 @@ if (window.location.pathname.includes("login.html")) {
             </div>
           </div>
       `;
-      document.getElementById("login")?.addEventListener("click", () => {
-        const name = document.getElementById("name").value.trim();
+      document.getElementById("login").addEventListener("click", () => {
+        const fname = document.getElementById("first_name").value.trim();
         const password = document.getElementById("password").value;
+        fetch("https://69152cb584e8bd126af8ef82.mockapi.io/user").then((res) =>
+          res.json().then((data) => {
+            inforUser = data;
+            const foundUser = inforUser.find((User) => {
+              return User.first_name === fname && User.password === password;
+            });
 
-        // lấy thông tin trong local
-        const outUser = localStorage.getItem("User");
-
-        // từ dạng string -> object
-        const registerUser = JSON.parse(outUser);
-
-        // tìm user
-        const foundUser = registerUser.find((User) => {
-          return User.name === name && User.password === password;
-        });
-
-        if (!foundUser) {
-          alert("User does not exist");
-          return;
-        }
-        if (foundUser) {
-          localStorage.setItem("StatusLogin", "true");
-          localStorage.setItem("nameUser", name);
-          window.location.href = "index.html";
-        } else {
-          alert("Name or Password wrong !");
-        }
+            if (!foundUser) {
+              alert("User does not exist");
+              return;
+            }
+            if (foundUser) {
+              localStorage.setItem("NameLogin", fname);
+              localStorage.setItem("StatusLogin", "true");
+              window.location.href = "index.html";
+            } else {
+              alert("Name or Password wrong !");
+            }
+          })
+        );
       });
     }
 
@@ -401,30 +459,34 @@ if (window.location.pathname.includes("login.html")) {
 
 // Thay đổi khung avata khi đăng nhập
 if (localStorage.getItem("StatusLogin") === "true") {
-  const shellUser = document.getElementById("shellUser");
-  const settingUser = document.getElementById("settingUser");
-  const nameUser = localStorage.getItem("nameUser");
-  shellUser.innerHTML = `<div class="md:w-30 content-center">
-                      <p class="text-white text-xl max-sm:text-[15px]">${nameUser}</p>
+  fetch("https://69152cb584e8bd126af8ef82.mockapi.io/user")
+    .then((res) => res.json())
+    .then((data) => {
+      dataA = data;
+      const userId = dataA.find((user) => {
+        return user.first_name == localStorage.getItem("NameLogin");
+      });
+      if (userId) {
+        const shellUser = document.getElementById("shellUser");
+        const settingUser = document.getElementById("settingUser");
+        shellUser.innerHTML = `<div class="md:w-30 content-center justify-items-start">
+                      <span class="text-white max-sm:text-[15px] text-xl">${userId.first_name}</span>
                     </div>
-                    <img src="src/img/astronaut.png" class="lg:scale-110" />
+                    <img src="${userId.avatar}" class="w-7 h-7 rounded-2xl max-sm:absolute bottom-1.5 right-2" />
                   </div>`;
-  settingUser.innerHTML = `
+        settingUser.innerHTML = `
   <a href="#" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">
     Your profile</a>
   <a href="#" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">
     Settings</a>
   <a id="singOut" href="#" class="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:outline-hidden">
     Sign out</a`;
-}
 
-// Set lại trạng thái đăng nhập
-if (
-  window.location.pathname.includes("index.html") &&
-  localStorage.getItem("StatusLogin") === "true"
-) {
-  document.getElementById("singOut").addEventListener("click", () => {
-    localStorage.setItem("StatusLogin", "false");
-    window.location.reload();
-  });
+        // Set lại trạng thái đăng nhập
+        document.getElementById("singOut").addEventListener("click", () => {
+          localStorage.setItem("StatusLogin", "false");
+          window.location.reload();
+        });
+      }
+    });
 }
