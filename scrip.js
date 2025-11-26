@@ -54,6 +54,83 @@ fetch("https://api.spacexdata.com/v4/rockets?")
   })
   .catch((error) => console.error("Error fetching data:", error));
 
+let lastLat = null;
+let lastLon = null;
+let lastTime = null;
+
+function formatLatLon(lat, lon) {
+  const latDir = lat >= 0 ? "N" : "S";
+  const lonDir = lon >= 0 ? "E" : "W";
+
+  return `Lat: ${Math.abs(lat).toFixed(4)}° ${latDir},
+Lon: ${Math.abs(lon).toFixed(4)}° ${lonDir}`;
+}
+
+// Hàm tính khoảng cách giữa 2 cặp lat/lon (km)
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371; // bán kính Trái Đất (km)
+  const toRad = (deg) => (deg * Math.PI) / 180;
+
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Lấy quốc gia ISS đang bay qua (free API)
+async function getCountry(lat, lon) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+    );
+    const data = await res.json();
+    return data.address?.country || "Over Ocean";
+  } catch {
+    return "Unknown";
+  }
+}
+
+async function updateISS() {
+  const res = await fetch("http://api.open-notify.org/iss-now.json");
+  const data = await res.json();
+
+  const lat = parseFloat(data.iss_position.latitude);
+  const lon = parseFloat(data.iss_position.longitude);
+  const now = Date.now() / 1000; // giây
+
+  // Tính tốc độ (km/h)
+  let speedText = "Wait a second...";
+  if (lastLat !== null) {
+    const distance = haversine(lastLat, lastLon, lat, lon);
+    const dt = now - lastTime;
+    const speed = (distance / dt) * 3600;
+    speedText = speed.toFixed(1) + " km/h";
+  }
+
+  const country = await getCountry(lat, lon);
+
+  document.getElementById("iss-info").innerHTML = `
+  <p class="mt-10">The ISS is a large, orbiting spacecraft and science laboratory where astronauts from various countries live and conduct experiments in microgravity. It was assembled through a collaboration of 15 countries, with construction beginning in 1998 and continuous human occupation since November 2, 2000. The station orbits the Earth at an average speed of 28,800 km/h, completing about 16 orbits per day. </p>
+  <p>A multinational project: The ISS is a result of an international partnership between NASA (United States), Roscosmos (Russia), ESA (Europe), JAXA (Japan), and CSA (Canada).</p>
+  <ol class="mt-10 bg-white p-5 shadow-2xl rounded-2xl w-[50%]">
+    <li>${formatLatLon(lat, lon)}</li>
+    <li>Speed: ${speedText}</li>
+    <li>Localtion: ${country}</li>
+    <li>Update: ${new Date().toLocaleTimeString()}</li>
+  </ol>`;
+
+  lastLat = lat;
+  lastLon = lon;
+  lastTime = now;
+}
+
+setInterval(updateISS, 10000);
+updateISS();
+
 let changeRB = false;
 // Hàm hiển thị chi tiết (toàn cục)
 function detail(rocketId) {
